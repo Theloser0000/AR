@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Farewell AR</title>
+  <meta charset="utf-8">
+  <title>Farewell AR</title>
 
-<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
 
 <body style="margin:0; overflow:hidden;">
 
-<a-scene embedded arjs>
+<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
 
-<a-assets>
-<video
-id="farewellVideo"
-src="farewell.mp4"
-autoplay
-muted
-playsinline
-webkit-playsinline
-loop
-crossorigin="anonymous">
-</video>
-</a-assets>
+  <a-assets>
+    <video
+      id="vid"
+      src="./farewell.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      crossorigin="anonymous">
+    </video>
+  </a-assets>
 
-<a-marker preset="hiro">
+  <a-marker preset="hiro">
+    <a-video
+      src="#vid"
+      width="2"
+      height="1.2"
+      position="0 0.5 0">
+    </a-video>
+  </a-marker>
 
-<a-video
-src="#farewellVideo"
-position="0 0.5 0"
-width="2"
-height="1.2">
-</a-video>
-
-</a-marker>
-
-<a-entity camera></a-entity>
+  <a-entity camera></a-entity>
 
 </a-scene>
 
 <script>
-document.querySelector("a-scene").addEventListener("loaded", function () {
-  const vid = document.querySelector("#farewellVideo");
-  vid.play().catch(()=>{});
+window.addEventListener("click", () => {
+  const v = document.getElementById("vid");
+  if (v) v.play();
 });
 </script>
 
