@@ -12,21 +12,40 @@
 
 <a-scene embedded arjs>
 
+<a-assets>
+<video
+id="farewellVideo"
+src="farewell.mp4"
+autoplay
+muted
+playsinline
+webkit-playsinline
+loop
+crossorigin="anonymous">
+</video>
+</a-assets>
+
 <a-marker preset="hiro">
 
-<a-image
-src="https://cdn-icons-png.flaticon.com/512/727/727245.png"
+<a-video
+src="#farewellVideo"
 position="0 0.5 0"
-width="1"
-height="1"
-onclick="window.open('farewell.mp4','_blank')">
-</a-image>
+width="2"
+height="1.2">
+</a-video>
 
 </a-marker>
 
 <a-entity camera></a-entity>
 
 </a-scene>
+
+<script>
+document.querySelector("a-scene").addEventListener("loaded", function () {
+  const vid = document.querySelector("#farewellVideo");
+  vid.play().catch(()=>{});
+});
+</script>
 
 </body>
 </html>
