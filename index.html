@@ -2,20 +2,30 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Farewell AR</title>
+  <title>EWBS Farewell AR</title>
 
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
-<body style="margin:0; overflow:hidden;">
+<body>
 
-<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+<a-scene
+  embedded
+  arjs="sourceType: webcam; debugUIEnabled: false;">
 
   <a-assets>
     <video
-      id="vid"
+      id="farewellVideo"
       src="./farewell.mp4"
+      preload="auto"
       autoplay
       muted
       loop
@@ -25,13 +35,18 @@
     </video>
   </a-assets>
 
-  <a-marker preset="hiro">
+  <a-marker
+    type="pattern"
+    url="./pattern-marker.patt">
+
     <a-video
-      src="#vid"
+      src="#farewellVideo"
       width="2"
       height="1.2"
-      position="0 0.5 0">
+      position="0 0.5 0"
+      rotation="-90 0 0">
     </a-video>
+
   </a-marker>
 
   <a-entity camera></a-entity>
@@ -39,9 +54,14 @@
 </a-scene>
 
 <script>
-window.addEventListener("click", () => {
-  const v = document.getElementById("vid");
-  if (v) v.play();
+window.addEventListener("click", function () {
+  const video = document.getElementById("farewellVideo");
+
+  if (video) {
+    video.play().catch(function(e) {
+      console.log(e);
+    });
+  }
 });
 </script>
 
